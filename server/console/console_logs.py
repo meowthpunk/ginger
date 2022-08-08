@@ -14,9 +14,9 @@ def info_prefer(string):
 
 class ConsoleLogs():
 
-    def START():
+    def START(host, port):
         os.system('CLS')
-        print(f"{Style.VIOLET_BG} DONE {Style.ZERO} {Style.VIOLET}Compiled successfully{Style.ZERO}\n\n  {Style.BOLD}Running at:{Style.ZERO}\n  {Style.BOLD}- Local:{Style.ZERO} {Style.BLUE}http://localhost:{Style.BOLD}5000{Style.ZERO}{Style.BLUE}/{Style.ZERO}\n  {Style.BOLD}- Network:{Style.ZERO} {Style.BLUE}http://127.0.0.1:{Style.BOLD}5000{Style.ZERO}{Style.BLUE}/{Style.ZERO}\n")
+        print(f"{Style.VIOLET_BG} DONE {Style.ZERO} {Style.VIOLET}Compiled successfully{Style.ZERO}\n\n  {Style.BOLD}Running at:{Style.ZERO}\n  {Style.BOLD}- Network:{Style.ZERO} {Style.BLUE}http://{host}:{Style.BOLD}{str(port)}{Style.ZERO}{Style.BLUE}/{Style.ZERO}\n")
 
     def SERVER(name):
         print(info_prefer(f"{Style.BLUE_BG} SERVER {Style.ZERO}{dasher}") +
@@ -32,8 +32,28 @@ class ConsoleLogs():
 
     def PRINT(string):
         tb = "  "
-        print(tb + string)
+        print(tb + str(string))
 
     def END():
         # varid = 1
         print("")
+
+
+def socketDecorator(input_arg):
+    def the_real_decorator(function):
+        def wrapper(*args, **kwargs):
+            ConsoleLogs.SOCKETS(input_arg)
+            function(*args, **kwargs)
+            ConsoleLogs.END()
+        return wrapper
+    return the_real_decorator
+
+
+def socketAuthDecorator(input_arg):
+    def the_real_decorator(function):
+        def wrapper(*args, **kwargs):
+            ConsoleLogs.SOCKETS(input_arg)
+            function(*args, **kwargs)
+            ConsoleLogs.END()
+        return wrapper
+    return the_real_decorator
